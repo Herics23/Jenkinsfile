@@ -1,4 +1,4 @@
-# 6d8d3232-848a-4f2e-8cbd-f889a2026c1f
+#! 6d8d3232-848a-4f2e-8cbd-f889a2026c1f
 pipeline {
     agent any
     environment {
