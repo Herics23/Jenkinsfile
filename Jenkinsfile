@@ -6,7 +6,7 @@ pipeline {
         SERVER_CREDENTIALS = credentials('6d8d3232-848a-4f2e-8cbd-f889a2026c1f')
     }
     tools {
-        maven
+        maven 'Maven'
     }
     stages {
 
