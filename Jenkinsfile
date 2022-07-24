@@ -1,4 +1,5 @@
 #! 6d8d3232-848a-4f2e-8cbd-f889a2026c1f
+def gv
 pipeline {
     agent any
 
@@ -19,7 +20,10 @@ pipeline {
             }
 
             steps {
-                echo "building the application"
+                script {
+                    
+                }
+                gv.buildApp()
 
             }
         }
@@ -33,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Testing App"
+                gv.testApp()
                 
             }
         }
