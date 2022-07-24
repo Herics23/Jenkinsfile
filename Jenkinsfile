@@ -5,6 +5,9 @@ pipeline {
         NEW_VERSION = '1.3.0'
         SERVER_CREDENTIALS = credentials('6d8d3232-848a-4f2e-8cbd-f889a2026c1f')
     }
+    tools {
+        maven
+    }
     stages {
 
         stage("build") {
@@ -12,6 +15,7 @@ pipeline {
             when {
                 expression {
                     BRANCH_NAME == 'main'
+                    sh "mvn install"
                 }
             }
 
@@ -37,8 +41,6 @@ pipeline {
 
             steps {
                 echo "Deploy app"
-                echo "Deploying with ${SERVER_CREDENTIALS}"
-                sh "${SERVER_CREDENTIALS}"
                 
             }
         }
