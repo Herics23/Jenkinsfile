@@ -1,13 +1,14 @@
 #! 6d8d3232-848a-4f2e-8cbd-f889a2026c1f
 pipeline {
     agent any
-    environment {
-        NEW_VERSION = '1.3.0'
-        SERVER_CREDENTIALS = credentials('6d8d3232-848a-4f2e-8cbd-f889a2026c1f')
+
+    parameters {
+        string(name: 'VERSION', defaultValue: '', description: 'version to deploy')
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+
     }
-    tools {
-        maven 'Maven'
-    }
+
     stages {
 
         stage("build") {
@@ -15,13 +16,11 @@ pipeline {
             when {
                 expression {
                     BRANCH_NAME == 'main'
-                    sh "mvn install"
                 }
             }
 
             steps {
                 echo "building the application"
-                echo "building version ${NEW_VERSION}"
 
             }
         }
@@ -29,7 +28,9 @@ pipeline {
 
             when {
                 expression {
-                    BRANCH_NAME == 'dev'
+                    BRANCH_NAME == 'main'
+                    params.executeTests == true
+
                 }
             }
             steps {
@@ -41,6 +42,7 @@ pipeline {
 
             steps {
                 echo "Deploy app"
+                echo "Deloying version ${params.VERSION}"
                 
             }
         }
